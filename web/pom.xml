@@ -15,17 +15,17 @@
 
     <dependencies>
 
+        <!-- ======= -->
+        <!-- 模块依赖 -->
+        <!-- ======= -->
         <dependency>
             <groupId>com.mintai.data</groupId>
             <artifactId>mintai-data-biz</artifactId>
         </dependency>
 
-        <!-- guava -->
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-        </dependency>
-
+        <!-- ======= -->
+        <!-- 第三方库 -->
+        <!-- ======= -->
         <!-- spring -->
         <dependency>
             <groupId>org.springframework</groupId>

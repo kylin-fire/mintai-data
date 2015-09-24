@@ -8,6 +8,7 @@ import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 
 import javax.annotation.Resource;
@@ -27,8 +28,10 @@ import java.util.concurrent.TimeUnit;
 public class RealTimeSourceSpiderScheduler implements InitializingBean {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
     private static ScheduledExecutorService executor = Executors.newScheduledThreadPool(2);
-    private String userName = "user_name";
-    private String password = "password";
+    @Value("${login.username}")
+    private String userName;
+    @Value("${login.password}")
+    private String password;
     @Resource
     private RealTimeSourceSpider realTimeSourceSpider;
     @Resource

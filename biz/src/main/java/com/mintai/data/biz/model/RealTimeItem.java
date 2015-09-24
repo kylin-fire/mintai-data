@@ -1,4 +1,4 @@
-package com.mintai.data.biz.spider.model;
+package com.mintai.data.biz.model;
 
 /**
  * 文件描述：
@@ -7,15 +7,15 @@ package com.mintai.data.biz.spider.model;
  *         Date 2015/9/3.
  */
 public class RealTimeItem {
-    private String from;
+    private String source;
     private int visitor;
 
-    public String getFrom() {
-        return from;
+    public String getSource() {
+        return source;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public int getVisitor() {

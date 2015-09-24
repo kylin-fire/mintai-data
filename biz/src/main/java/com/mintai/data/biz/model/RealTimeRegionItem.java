@@ -1,4 +1,4 @@
-package com.mintai.data.biz.spider.model;
+package com.mintai.data.biz.model;
 
 /**
  * 文件描述：

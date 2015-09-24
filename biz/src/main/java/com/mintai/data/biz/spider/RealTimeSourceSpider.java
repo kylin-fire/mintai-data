@@ -1,13 +1,12 @@
 package com.mintai.data.biz.spider;
 
+import com.alibaba.common.lang.StringUtil;
 import com.google.common.base.Throwables;
-import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Multimap;
-import com.mintai.data.biz.spider.model.RealTimeData;
-import com.mintai.data.biz.spider.model.RealTimeItem;
-import com.mintai.data.biz.spider.model.RealTimeRegionItem;
-import com.mintai.data.biz.spider.model.RealTimeSourceItem;
+import com.mintai.data.biz.model.RealTimeData;
+import com.mintai.data.biz.model.RealTimeItem;
+import com.mintai.data.biz.model.RealTimeRegionItem;
+import com.mintai.data.biz.model.RealTimeSourceItem;
 import com.mintai.data.common.helper.CommonHelper;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -33,24 +32,7 @@ public class RealTimeSourceSpider {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
-    public List<Multimap<String, RealTimeData>> execute(String userName, String password) {
-        List<Multimap<String, RealTimeData>> result = Lists.newArrayListWithCapacity(2);
-
-        // 爬取
-        WebDriver driver = craw(userName, password);
-
-        Multimap<String, RealTimeData> platform = extractPlatform(driver);
-        result.add(platform);
-        //OutputHelper.outputExtract(path, "RealTime", platform);
-
-        Multimap<String, RealTimeData> region = extractRegion(driver);
-        result.add(region);
-        //OutputHelper.outputExtract(path, "RealTime", region);
-
-        return result;
-    }
-
-    private WebDriver craw(String userName, String password) {
+    public WebDriver craw(String userName, String password) {
         // ʵʱֱ��
         driver.get(baseUrl + "index.htm");
 
@@ -89,28 +71,28 @@ public class RealTimeSourceSpider {
         return driver;
     }
 
-    public Multimap<String, RealTimeData> extractPlatform(WebDriver driver) {
+    public List<RealTimeData> extractPlatform(WebDriver driver) {
         WebElement root = driver.findElement(By.id("page-live-source"));
 
-        Multimap<String, RealTimeData> multiMap = HashMultimap.create();
+        List<RealTimeData> list = Lists.newArrayList();
 
         // 抽取数据
         List<WebElement> platform = root.findElements(By.cssSelector("div.component-source-device"));
 
         for (WebElement each : platform) {
             RealTimeData source = getRealTimeSource(each);
-            multiMap.put("platform", source);
+            list.add(source);
         }
 
-        logger.warn(String.format("spider\01platform\02%s", CommonHelper.toJson(multiMap.asMap())));
+        logger.warn(String.format("spider\01platform\02%s", CommonHelper.toJson(list)));
 
-        return multiMap;
+        return list;
     }
 
     private static RealTimeData getRealTimeSource(WebElement element) {
         RealTimeData sourceDO = new RealTimeData();
-        String source = element.findElement(By.cssSelector("h4.navbar-header > span")).getText();
-        sourceDO.setSource(source);
+        String platform = element.findElement(By.cssSelector("h4.navbar-header > span")).getText();
+        sourceDO.setPlatform(platform);
 
         String time = element.findElement(By.cssSelector("div.mod-box-update-time > span > em")).getText();
         Date date = CommonHelper.toDate(time, "yyyy-MM-dd HH:mm:ss");
@@ -141,14 +123,14 @@ public class RealTimeSourceSpider {
 
         RealTimeSourceItem item = new RealTimeSourceItem();
 
-        String from = row.findElement(By.cssSelector("span.source > span")).getText();
+        String source = row.findElement(By.cssSelector("span.source > span")).getText();
         String percent = row.findElement(By.cssSelector("span.percent")).getText();
-        if (CommonHelper.isNotBlank(percent) && percent.contains("%")) {
+        if (StringUtil.isNotBlank(percent) && percent.contains("%")) {
             percent = percent.replace("%", "");
         }
         String visitor = row.findElement(By.cssSelector("span.pv")).getText();
 
-        item.setFrom(from);
+        item.setSource(source);
         item.setPercent(Double.valueOf(percent));
         item.setVisitor(Integer.valueOf(visitor));
 
@@ -185,20 +167,20 @@ public class RealTimeSourceSpider {
 
     private static RealTimeSourceItem getRealTimeChildSourceItem(WebElement row) {
         String from = row.findElement(By.cssSelector("span.source")).getText();
-        if (CommonHelper.isNotBlank(from)) {
+        if (StringUtil.isNotBlank(from)) {
             RealTimeSourceItem item = new RealTimeSourceItem();
 
             String percent = row.findElement(By.cssSelector("span.percent")).getText();
-            if (CommonHelper.isNotBlank(percent) && percent.contains("%")) {
+            if (StringUtil.isNotBlank(percent) && percent.contains("%")) {
                 percent = percent.replace("%", "");
             }
             String pv = row.findElement(By.cssSelector("span.pv")).getText();
 
-            item.setFrom(from);
-            if (CommonHelper.isNotBlank(percent)) {
+            item.setSource(from);
+            if (StringUtil.isNotBlank(percent)) {
                 item.setPercent(Double.valueOf(percent));
             }
-            if (CommonHelper.isNotBlank(pv)) {
+            if (StringUtil.isNotBlank(pv)) {
                 item.setVisitor(Integer.valueOf(pv));
             }
             return item;
@@ -206,25 +188,22 @@ public class RealTimeSourceSpider {
         return null;
     }
 
-    public Multimap<String, RealTimeData> extractRegion(WebDriver driver) {
+    public RealTimeData extractRegion(WebDriver driver) {
         WebElement root = driver.findElement(By.id("page-live-source"));
-
-        Multimap<String, RealTimeData> multimap = HashMultimap.create();
 
         // 抽取数据
         WebElement region = root.findElement(By.cssSelector("div.component-source-region"));
-        RealTimeData sourceDO = getRealTimeRegion(region);
-        multimap.put("region", sourceDO);
+        RealTimeData realTimeData = getRealTimeRegion(region);
 
-        logger.warn(String.format("spider\01region\02%s", CommonHelper.toJson(multimap.asMap())));
+        logger.warn(String.format("spider\01region\02%s", CommonHelper.toJson(realTimeData)));
 
-        return multimap;
+        return realTimeData;
     }
 
     private static RealTimeData getRealTimeRegion(WebElement element) {
         RealTimeData sourceDO = new RealTimeData();
         String source = element.findElement(By.cssSelector("h4.navbar-header > span")).getText();
-        sourceDO.setSource(source);
+        sourceDO.setPlatform(source);
 
         String time = element.findElement(By.cssSelector("div.mod-box-update-time > span > em")).getText();
         Date date = CommonHelper.toDate(time, "yyyy-MM-dd HH:mm:ss");
@@ -241,7 +220,7 @@ public class RealTimeSourceSpider {
                 String pv = row.findElement(By.cssSelector("span.col-2")).getText();
                 String paid = row.findElement(By.cssSelector("span.col-4")).getText();
 
-                item.setFrom(from);
+                item.setSource(from);
                 item.setPaid(Integer.valueOf(paid));
                 item.setVisitor(Integer.valueOf(pv));
                 sourceList.add(item);

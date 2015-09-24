@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mintai.data.dal.RealTimeRegionDao">
+    <insert id="insert" parameterType="com.mintai.data.biz.model.RealTimeSourceDO" useGeneratedKeys="true"
+            keyProperty="id">
+        <![CDATA[
+        insert into mintai_taobao_realtime_access_region_detail(gmt_create,type,region,visitor,paid)
+	    values(now(),#{platform},#{source},#{visitor},#{paid})
+        ]]>
+    </insert>
+</mapper>

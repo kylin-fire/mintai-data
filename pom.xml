@@ -28,6 +28,16 @@
             <!-- ======= -->
             <!-- 第二方库 -->
             <!-- ======= -->
+            <dependency>
+                <groupId>com.alibaba.toolkit</groupId>
+                <artifactId>toolkit-common-convert</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.toolkit</groupId>
+                <artifactId>toolkit-common-lang</artifactId>
+                <version>1.0</version>
+            </dependency>
 
             <!-- ======= -->
             <!-- 第三方库 -->
@@ -61,6 +71,29 @@
                 <version>18.0</version>
             </dependency>
 
+            <!-- mybatis -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>3.3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis-spring</artifactId>
+                <version>1.2.3</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-dbcp</groupId>
+                <artifactId>commons-dbcp</artifactId>
+                <version>1.4</version>
+            </dependency>
+            <!-- mysql -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.36</version>
+            </dependency>
+
             <!-- spring -->
             <dependency>
                 <groupId>org.springframework</groupId>
@@ -92,6 +125,12 @@
                 <artifactId>spring-context</artifactId>
                 <version>4.2.1.RELEASE</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>4.2.1.RELEASE</version>
+            </dependency>
+
 
             <!-- servlet -->
             <dependency>
@@ -136,6 +175,12 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>99.0-does-not-exist</version>
+            </dependency>
+            <!-- for spring -->
+            <dependency>
+                <groupId>org.logback-extensions</groupId>
+                <artifactId>logback-ext-spring</artifactId>
+                <version>0.1.4</version>
             </dependency>
             <!-- bound to log4j -->
             <!--<dependency> -->

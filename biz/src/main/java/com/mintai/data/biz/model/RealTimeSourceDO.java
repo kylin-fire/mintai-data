@@ -1,4 +1,4 @@
-package com.mintai.data.biz.spider.model;
+package com.mintai.data.biz.model;
 
 import java.util.Date;
 
@@ -9,11 +9,30 @@ import java.util.Date;
  *         Date 2015/9/24.
  */
 public class RealTimeSourceDO {
-    private String source;
+    private long id;
+    private Date gmtCreate;
     private Date time;
-    private String from;
+    private String platform;
+    private String source;
     private int visitor;
     private double percent;
+    private long parent;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Date getGmtCreate() {
+        return gmtCreate;
+    }
+
+    public void setGmtCreate(Date gmtCreate) {
+        this.gmtCreate = gmtCreate;
+    }
 
     public String getSource() {
         return source;
@@ -31,12 +50,12 @@ public class RealTimeSourceDO {
         this.time = time;
     }
 
-    public String getFrom() {
-        return from;
+    public String getPlatform() {
+        return platform;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setPlatform(String platform) {
+        this.platform = platform;
     }
 
     public int getVisitor() {
@@ -53,5 +72,13 @@ public class RealTimeSourceDO {
 
     public void setPercent(double percent) {
         this.percent = percent;
+    }
+
+    public long getParent() {
+        return parent;
+    }
+
+    public void setParent(long parent) {
+        this.parent = parent;
     }
 }

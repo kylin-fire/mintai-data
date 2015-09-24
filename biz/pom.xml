@@ -14,6 +14,19 @@
 
 
     <dependencies>
+
+        <!-- ======= -->
+        <!-- 第二方库 -->
+        <!-- ======= -->
+        <dependency>
+            <groupId>com.alibaba.toolkit</groupId>
+            <artifactId>toolkit-common-convert</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.toolkit</groupId>
+            <artifactId>toolkit-common-lang</artifactId>
+        </dependency>
+
         <!-- ======= -->
         <!-- 第三方库 -->
         <!-- ======= -->
@@ -41,6 +54,25 @@
             <artifactId>guava</artifactId>
         </dependency>
 
+        <!-- mybatis -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>commons-dbcp</groupId>
+            <artifactId>commons-dbcp</artifactId>
+        </dependency>
+        <!-- mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
         <!-- spring -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -49,6 +81,10 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
         </dependency>
 
         <!-- logger -->
@@ -80,6 +116,11 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+        <!-- for spring -->
+        <dependency>
+            <groupId>org.logback-extensions</groupId>
+            <artifactId>logback-ext-spring</artifactId>
         </dependency>
 
         <dependency>

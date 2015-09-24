@@ -1,4 +1,4 @@
-package com.mintai.data.biz.spider.model;
+package com.mintai.data.biz.model;
 
 import java.util.List;
 

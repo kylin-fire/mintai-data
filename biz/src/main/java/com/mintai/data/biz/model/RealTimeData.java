@@ -1,4 +1,4 @@
-package com.mintai.data.biz.spider.model;
+package com.mintai.data.biz.model;
 
 import java.util.Date;
 import java.util.List;
@@ -10,16 +10,16 @@ import java.util.List;
  *         Date 2015/9/3.
  */
 public class RealTimeData {
-    private String source;
+    private String platform;
     private Date time;
     private List<RealTimeItem> sources;
 
-    public String getSource() {
-        return source;
+    public String getPlatform() {
+        return platform;
     }
 
-    public void setSource(String source) {
-        this.source = source;
+    public void setPlatform(String platform) {
+        this.platform = platform;
     }
 
     public Date getTime() {

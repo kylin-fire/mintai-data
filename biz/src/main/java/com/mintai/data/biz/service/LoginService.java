@@ -1,5 +1,6 @@
 package com.mintai.data.biz.service;
 
+import com.alibaba.common.lang.StringUtil;
 import com.mintai.data.common.helper.CommonHelper;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class LoginService {
     public boolean login(String userName, String password) {
-        return CommonHelper.isNotBlank(userName) && CommonHelper.isNotBlank(password);
+        return StringUtil.isNotBlank(userName) && StringUtil.isNotBlank(password);
     }
 }

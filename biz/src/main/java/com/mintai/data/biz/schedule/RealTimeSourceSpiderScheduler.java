@@ -1,10 +1,10 @@
 package com.mintai.data.biz.schedule;
 
 import com.google.common.base.Throwables;
-import com.google.common.collect.Multimap;
+import com.mintai.data.biz.model.RealTimeData;
 import com.mintai.data.biz.service.RealTimeSourceService;
 import com.mintai.data.biz.spider.RealTimeSourceSpider;
-import com.mintai.data.biz.spider.model.RealTimeData;
+import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
@@ -46,9 +46,20 @@ public class RealTimeSourceSpiderScheduler implements InitializingBean {
                 int loop = 0;
                 while (loop++ < 5) {
                     try {
-                        List<Multimap<String, RealTimeData>> result = realTimeSourceSpider.execute(userName, password);
+                        // 爬取
+                        WebDriver driver = realTimeSourceSpider.craw(userName, password);
 
-                        success = realTimeSourceService.persist(result);
+                        // 抽取平台访问来源
+                        List<RealTimeData> platform = realTimeSourceSpider.extractPlatform(driver);
+
+                        success = realTimeSourceService.persistPlatform(platform);
+
+                        if (success) {
+                            // 抽取低于访问数据
+                            RealTimeData region = realTimeSourceSpider.extractRegion(driver);
+
+                            success = realTimeSourceService.persistRegion(region);
+                        }
                     } catch (Exception e) {
                         logger.error(String.format("spider\01exception\02%s", Throwables.getRootCause(e)));
                     }
@@ -69,9 +80,9 @@ public class RealTimeSourceSpiderScheduler implements InitializingBean {
         long delay = calculateDelay();
 
         // 每隔10分钟调度一次
-        int rate = 30;
+        int rate = 3600;
 
-        executor.scheduleAtFixedRate(runnable, 0, rate, TimeUnit.SECONDS);
+        executor.scheduleAtFixedRate(runnable, delay, rate, TimeUnit.SECONDS);
 
         logger.warn(String.format("initialled\01delay\02%s\01rate\02%s", delay, rate));
     }

@@ -27,19 +27,17 @@ public class RealTimeSourceSpider {
     private String baseUrl;
 
     public RealTimeSourceSpider() {
-
-    }
-
-    public WebDriver craw(String userName, String password) {
         driver = new FirefoxDriver();
         baseUrl = "http://beta.sycm.taobao.com/";
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    }
 
-        // ʵʱֱ��
+    public WebDriver craw(String userName, String password) {
+        // 访问首页
         driver.get(baseUrl + "index.htm");
 
         if (driver.getCurrentUrl().contains("login.htm")) {
-            // ��¼
+            // 等待登录页面
             while (true) {
                 String text = driver.findElement(By.id("mod-banner")).getText();
                 if (text != null && !text.isEmpty()) {
@@ -65,10 +63,10 @@ public class RealTimeSourceSpider {
 
         driver.findElement(By.linkText("实时直播")).click();
 
-        // ʵʱ��Դ
+        // 进入实时来源
         driver.findElement(By.linkText("实时来源")).click();
 
-        logger.warn(String.format("spider\01url\02%s\01source\02%s", driver.getCurrentUrl(), driver.getPageSource()));
+        logger.warn(String.format("spider\01url\02%s\01source\02%s", driver.getCurrentUrl(), ""));
 
         return driver;
     }

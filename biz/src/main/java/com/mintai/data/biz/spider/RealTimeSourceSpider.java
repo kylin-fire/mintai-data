@@ -27,12 +27,14 @@ public class RealTimeSourceSpider {
     private String baseUrl;
 
     public RealTimeSourceSpider() {
-        driver = new FirefoxDriver();
-        baseUrl = "http://beta.sycm.taobao.com/";
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
     }
 
     public WebDriver craw(String userName, String password) {
+        driver = new FirefoxDriver();
+        baseUrl = "http://beta.sycm.taobao.com/";
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+
         // ʵʱֱ��
         driver.get(baseUrl + "index.htm");
 

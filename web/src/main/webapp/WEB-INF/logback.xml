@@ -10,7 +10,7 @@
     <!-- ÊôÐÔ¶¨Òå -->
     <!-- ====================== -->
     <property name="APP_NAME" value="default"/>
-    <property name="LOGGING_LEVEL" value="info"/>
+    <property name="LOGGING_LEVEL" value="warn"/>
     <property name="LOGGING_ROOT" value="${catalina.home:-.}/logs/"/>
 
     <!-- ====================== -->
